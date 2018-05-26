@@ -9,11 +9,18 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+
+
+
 BOT_NAME = 'mytry'
+
 
 SPIDER_MODULES = ['mytry.spiders']
 NEWSPIDER_MODULE = 'mytry.spiders'
 
+#Export as CSV Feed
+FEED_FORMAT="csv"
+FEED_URI="data.csv"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'mytry (+http://www.yourdomain.com)'
