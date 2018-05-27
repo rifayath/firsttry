@@ -18,13 +18,18 @@ BOT_NAME = 'mytry'
 SPIDER_MODULES = ['mytry.spiders']
 NEWSPIDER_MODULE = 'mytry.spiders'
 
-#Export as CSV Feed
-FEED_FORMAT="csv"
-FEED_URI="data.csv"
+#Export as XML Feed
+FEED_FORMAT ='xml'
+FEED_URI ='data.xml'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'mytry (+http://www.yourdomain.com)'
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
 
+ITEM_PIPELINES = {'scrapy.pipelines.files.FilesPipeline': 1}
+
+FILES_STORE = 'filestore'
+IMAGES_STORE ='imagestore'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
@@ -72,19 +77,13 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'mytry.pipelines.MytryPipeline': 300,
+    'mytry.pipelines.MytryPipeline': 800,
     
 }
 
 
 
-{
-    '': 'scrapy.contrib.feedexport.FileFeedStorage',
-    'file': 'scrapy.contrib.feedexport.FileFeedStorage',
-    'stdout': 'scrapy.contrib.feedexport.StdoutFeedStorage',
-    's3': 'scrapy.contrib.feedexport.S3FeedStorage',
-    'ftp': 'scrapy.contrib.feedexport.FTPFeedStorage',
-}
+FEE_EXPORTER="XmlItemExporter"
 #IMAGES_STORE = '~/Desktop/scrapy_nsml/healthycomm/images'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
