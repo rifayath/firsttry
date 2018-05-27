@@ -13,10 +13,10 @@ class MytryItem(scrapy.Item):
     # name = scrapy.Field()
     page_heading = scrapy.Field()
     page_title = scrapy.Field()
-    #page_link = scrapy.Field()
+    page_link = scrapy.Field()
     page_content = scrapy.Field()
     page_content_block = scrapy.Field()
 
-    #image_url = scrapy.Field()
-    image = scrapy.Field()
-    pass
+    image_url = scrapy.Field()
+    images = scrapy.Field()
+    
