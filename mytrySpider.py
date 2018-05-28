@@ -33,20 +33,20 @@ class mytrySpider(scrapy.Spider):
             f.write(response.body)
         self.log('Saved file %s' % filename)
         
-        for espn in response.css('textLine'):
-            scraped_info= {
+        for espn in response.css('.pnl650M'):
+            yield {
                     
-                    'scraped1': espn.css('.link-text').extract(),
-                   'scraped2': espn.css('.imgHldr').extract(),
+                    'scraped1': espn.css('.link-text').extract_first(),
+                   'scraped2': espn.css('.imgHldr').extract_first(),
                 #'text': espn.css('span.text::text').extract(),
                 #'author': espn.css('small.author::text').extract(),
                # 'tags': espn.css('div.tags a.tag::text').extract(),
             }
-        yield scraped_info
-       # next_page = response.css('table.teamList a::attr(href)').extract_first()
-       # if next_page is not None:
-         #   next_page = response.urljoin(next_page)
-          #  yield scrapy.Request(next_page, callback=self.parse)    
+       
+        next_page = response.css('table.pnl650M a::attr(href)').extract_first()
+        if next_page is not None:
+            next_page = response.urljoin(next_page)
+            yield scrapy.Request(next_page, callback=self.parse)    
 
-      
+      #textLine
 
