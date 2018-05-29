@@ -7,6 +7,7 @@ Created on Fri May 25 10:20:55 2018
 
 import scrapy
 
+scrapy.selector.SelectorList  
 
 class mytrySpider(scrapy.Spider):
     name = "espncricinfo"
@@ -20,7 +21,7 @@ class mytrySpider(scrapy.Spider):
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
-            #yield scrapy.MyImagesPipeline(url)
+            #yield scrapy.MytryPipeline(url)
             
             
      
@@ -36,13 +37,23 @@ class mytrySpider(scrapy.Spider):
         for espn in response.css('.pnl650M'):
             yield {
                     
-                    'scraped1': espn.css('.link-text').extract_first(),
-                   'scraped2': espn.css('.imgHldr').extract_first(),
+                    'scraped1': espn.css('.link-text').extract(),
+                   'scraped2': espn.css('.imgHldr').extract(),
                 #'text': espn.css('span.text::text').extract(),
                 #'author': espn.css('small.author::text').extract(),
                # 'tags': espn.css('div.tags a.tag::text').extract(),
             }
        
+        for espn2 in response.css('#ciMainContainer'):
+            yield {
+                    
+                    'scraped1': espn2.css('.pnl490M').extract(),
+                    'scraped2': espn2.css('.pnl490M').extract(),
+                
+            }
+        
+        
+        
         next_page = response.css('table.pnl650M a::attr(href)').extract_first()
         if next_page is not None:
             next_page = response.urljoin(next_page)
